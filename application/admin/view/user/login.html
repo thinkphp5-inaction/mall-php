@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container content-box">
+    <form action="{:url('do_login')}" method="post" class="form text-center login-form">
+        <fieldset>
+            <legend>登录</legend>
+            <label for="username" class="sr-only">账号</label>
+            <input type="text" name="username" id="username" class="form-control" required>
+            <label for="password" class="sr-only">密码</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
