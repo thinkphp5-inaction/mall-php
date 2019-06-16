@@ -7,6 +7,8 @@
 namespace app\index\controller;
 
 
+use Firebase\JWT\JWT;
+use think\Config;
 use think\Controller;
 use think\Exception;
 
@@ -22,10 +24,14 @@ class BaseController extends Controller
      */
     protected function loginRequired()
     {
-        $userId = session('userId');
-        if (empty($userId)) {
+        $authorization = request()->header('Authorization');
+        if (empty($authorization)) {
             throw new Exception('请登录', 401);
         }
-        return $userId;
+        $payload = JWT::decode($authorization, Config::get('jwt.key'), ['HS256']);
+        if (empty($payload) || $payload->expired_at < time()) {
+            throw new Exception('请登录', 401);
+        }
+        return $payload->user_id;
     }
 }

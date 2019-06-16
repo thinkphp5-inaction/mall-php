@@ -8,7 +8,6 @@ namespace app\index\controller;
 
 
 use app\index\service\UserService;
-use think\Controller;
 use think\Exception;
 use think\Request;
 use think\response\Json;
@@ -17,7 +16,7 @@ use think\response\Json;
  * Class UserController
  * @package app\index\controller
  */
-class User extends Controller
+class User extends BaseController
 {
     /**
      * 授权
@@ -37,8 +36,22 @@ class User extends Controller
         }
         try {
             $user = UserService::Factory()->oauth($data);
-            session('userId', $user['id']);
-            return json_msg('ok');
+            return json($user);
+        } catch (Exception $e) {
+            return json_msg($e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
+
+    /**
+     * 用户信息
+     * @return Json
+     */
+    public function info()
+    {
+        try {
+            $userId = $this->loginRequired();
+            $user = \app\common\model\User::get($userId);
+            return json($user->toArray());
         } catch (Exception $e) {
             return json_msg($e->getMessage(), $e->getCode() ?: 500);
         }
