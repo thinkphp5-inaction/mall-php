@@ -1,60 +1,53 @@
 {layout name="layout/main" /}
 
-<ol class="breadcrumb">
-    <li><a href="{:url('/admin')}">首页</a></li>
-    <li><a href="{:url('/admin/goods')}">商品管理</a></li>
-    <li class="active">发布商品</li>
-</ol>
-<form action="{:url('do_publish')}" method="post" class="form" enctype="multipart/form-data">
-    <fieldset>
-        <legend>发布商品</legend>
-        <div class="form-group">
-            <label for="title" class="control-label">名称</label>
-            <input placeholder="40字以内" type="text" id="title" name="title" required maxlength="40" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="thumb" class="control-label">缩略图</label>
-            <input type="file" id="thumb" name="thumb" required accept="image/*" class="form-control-static">
-        </div>
-        <div class="form-group">
-            <label for="description" class="control-label">简介</label>
-            <textarea name="description" id="description" class="form-control" rows="4"
-                      placeholder="选填,100字以内"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="price" class="control-label">价格(元)</label>
-            <input type="number" min="0" max="9999.99" id="price" name="price" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="stock" class="control-label">库存</label>
-            <input type="number" min="0" id="stock" name="stock" class="form-control">
-        </div>
-        <div class="form-group">
-            <label class="control-label">状态</label>
-            <div class="form-control-static">
-                <label class="radio-inline">
-                    <input type="radio" name="status" value="1"> 上架
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="status" value="0" checked> 下架
-                </label>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{:url('/admin')}">首页</a></li>
+        <li class="breadcrumb-item"><a href="{:url('/admin/goods')}">商品管理</a></li>
+        <li class="breadcrumb-item active" aria-current="page">添加商品</li>
+    </ol>
+</nav>
+
+<form action="{:url('do_publish')}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">名称</label>
+        <input type="text" name="title" class="form-control" id="title" placeholder="商品名称" required maxlength="40">
+    </div>
+    <div class="form-group">
+        <label for="thumb">缩略图</label>
+        <input type="file" name="thumb" class="form-control-file" id="thumb">
+    </div>
+    <div class="form-group">
+        <label for="description">简介(选填)</label>
+        <textarea name="description" id="description" class="form-control" rows="4" placeholder="100字以内"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">价格(元)</label>
+        <input placeholder="商品价格" type="number" class="form-control" id="price" name="price" required min="0"
+               max="9999">
+    </div>
+    <div class="form-group">
+        <label for="stock">库存</label>
+        <input placeholder="商品库存" type="number" class="form-control" name="stock" id="stock" required>
+    </div>
+    <div class="form-group">
+        <label>商品状态</label>
+        <div class="form-control-plaintext">
+            <div class="form-check form-check-inline">
+                <input id="online" checked type="radio" class="form-check-input" name="status" value="1">
+                <label for="online" class="form-check-label">上架</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input id="offline" type="radio" class="form-check-input" name="status" value="0">
+                <label for="offline" class="form-check-label">下架</label>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="tags" class="control-label">标签</label>
-            <input type="text" id="tags" name="tags" required class="form-control" placeholder="选填，用中文逗号分隔">
-        </div>
-        <div class="form-group">
-            <label for="images" class="control-label">详情图片(选填)</label>
-            <input type="file" id="images" name="images[]" multiple required accept="image/*" class="form-control-static">
-        </div>
-        <div class="form-group">
-            <label for="content" class="control-label">详情内容</label>
-            <textarea name="content" id="content" class="form-control" rows="4"></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">保存</button>
-        </div>
-    </fieldset>
+    </div>
+    <div class="form-group">
+        <label for="content">详情内容</label>
+        <textarea name="content" id="content" class="form-control" required rows="4" placeholder="商品详细介绍"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">保存</button>
+    </div>
 </form>

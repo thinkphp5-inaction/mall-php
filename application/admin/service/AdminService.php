@@ -49,7 +49,7 @@ class AdminService extends Service
         if (!$info) {
             throw new Exception('上传失败');
         }
-        return '/public/uploads/' . $info->getSaveName();
+        return '/uploads/' . $info->getSaveName();
     }
 
     /**

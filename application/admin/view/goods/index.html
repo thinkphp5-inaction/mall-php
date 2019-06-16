@@ -1,8 +1,47 @@
 {layout name="layout/main"/}
-<ol class="breadcrumb">
-    <li><a href="{:url('/admin')}">首页</a></li>
-    <li class="active">商品管理</li>
-</ol>
-<p>
-    <a href="{:url('publish')}" class="btn btn-primary">添加商品</a>
-</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">商品管理</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{:url('publish')}" class="btn btn-sm btn-outline-primary">添加商品</a>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>图片</th>
+        <th>价格</th>
+        <th>库存</th>
+        <th>状态</th>
+        <th>添加时间</th>
+        <th>更新时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="item"}
+    <tr>
+        <td>{$item.id}</td>
+        <td>{$item.title}</td>
+        <td>
+            <img src="{$item.thumb}" width="32" height="32" alt="">
+        </td>
+        <td>￥{$item.price}</td>
+        <td>{$item.stock}</td>
+        <td>
+            {eq name="item.status" value="1"}
+            <span class="badge badge-pill badge-success">上架</span>
+            {else/}
+            <span class="badge badge-pill badge-warning">下架</span>
+            {/eq}
+        </td>
+        <td>{$item.created_at}</td>
+        <td>{$item.updated_at}</td>
+        <td></td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+{$page}

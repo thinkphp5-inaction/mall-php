@@ -26,7 +26,7 @@ class Goods extends BaseController
     public function index(Request $request)
     {
         try {
-            $list = GoodsService::Factory()->list($request->get('size', 10), $request->get('keyword'));
+            $list = GoodsService::Factory()->list($request->get('size', 1), $request->get('keyword'));
             $this->assign('page', $list->render());
             $this->assign('list', $list);
             return $this->fetch();
@@ -66,13 +66,6 @@ class Goods extends BaseController
         try {
             $data = $request->post();
             $data['thumb'] = AdminService::Factory()->upload($thumb);
-            $images = $request->file('images');
-            if (!empty($images)) {
-                $data['images'] = AdminService::Factory()->uploadMulti($images);
-            }
-            if (!empty($data['tags'])) {
-                $data['tags'] = array_filter(explode('，', str_replace(',', '，', $data['tags'])));
-            }
             GoodsService::Factory()->publish($data);
             $this->success('发布成功', '/admin/goods/index');
         } catch (Exception $e) {
@@ -89,7 +82,6 @@ class Goods extends BaseController
         $errmsg = $this->validate($request->post(), [
             'id|商品ID' => 'require',
             'title|名称' => 'require|max:40',
-            'thumb|缩略图' => 'require|max:255',
             'description|简介' => 'max:100',
             'price|价格' => 'require|>=:0',
             'stock|库存' => 'require|>=:0',

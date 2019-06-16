@@ -9,30 +9,39 @@
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 </head>
-<body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand hidden-sm" href="">Mall</a>
-        </div>
-        <div class="navbar-collapse collapse" role="navigation">
-            <ul class="nav navbar-nav">
-                <li><a href="{:url('/admin/goods')}">商品管理</a></li>
-                <li><a href="{:url('/admin/order')}">订单管理</a></li>
-                <li><a href="{:url('/admin/user')}">用户管理</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{:url('/admin/user/logout')}">退出登录</a></li>
-            </ul>
-        </div>
+<body class="page-dashboard">
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a href="#" class="navbar-brand col-sm-3 col-md-2 mr-0">商城</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a href="{:url('/admin/user/logout')}" class="nav-link">退出登录</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-md-block bg-light sidebar">
+            <div class=".sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">数据概况</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{:url('/admin/goods')}" class="nav-link">商品管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">订单管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">用户管理</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        {__CONTENT__}
+    </main>
 </div>
-<div class="container content-box">{__CONTENT__}</div>
 </body>
 </html>
