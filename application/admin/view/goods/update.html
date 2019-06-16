@@ -1,0 +1,59 @@
+{layout name="layout/main" /}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{:url('/admin')}">首页</a></li>
+        <li class="breadcrumb-item"><a href="{:url('/admin/goods')}">商品管理</a></li>
+        <li class="breadcrumb-item active" aria-current="page">编辑商品</li>
+    </ol>
+</nav>
+
+<form action="{:url('do_update')}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$goods.id}">
+    <input type="hidden" name="thumb" value="{$goods.thumb}">
+    <div class="form-group">
+        <label for="title">名称</label>
+        <input type="text" value="{$goods.title}" name="title" class="form-control" id="title" placeholder="商品名称"
+               required maxlength="40">
+    </div>
+    <div class="form-group">
+        <label for="thumb">缩略图</label>
+        <input type="file" name="thumb_file" class="form-control-static" id="thumb">
+        {notempty name="goods.thumb"}
+        <div class="form-control-static">
+            <img src="{$goods.thumb}" width="100" alt="">
+        </div>
+        {/notempty}
+    </div>
+    <div class="form-group">
+        <label for="description">简介(选填)</label>
+        <textarea name="description" id="description" class="form-control" rows="4" placeholder="100字以内">{$goods.description}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">价格(元)</label>
+        <input value="{$goods.price}" placeholder="商品价格" type="number" class="form-control" id="price" name="price" required min="0"
+               max="9999">
+    </div>
+    <div class="form-group">
+        <label for="stock">库存</label>
+        <input value="{$goods.stock}" placeholder="商品库存" type="number" class="form-control" name="stock" id="stock" required>
+    </div>
+    <div class="form-group">
+        <label>商品状态</label>
+        <div class="form-control-static">
+            <label class="radio-inline">
+                <input type="radio" name="status" value="1" {eq name="goods.status" value="1"}checked{/eq}> 上架
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="status" value="0" {eq name="goods.status" value="0"}checked{/eq}> 下架
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="content">详情内容</label>
+        <textarea name="content" id="content" class="form-control" required rows="4" placeholder="商品详细介绍">{$goods.content}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+</form>

@@ -37,7 +37,11 @@
         </td>
         <td>{$item.created_at}</td>
         <td>{$item.updated_at}</td>
-        <td></td>
+        <td>
+            <a href="{:url('/admin/goods/update',['id'=>$item['id']])}" class="btn btn-sm btn-default">编辑</a>
+            <a onclick="return confirm('确定删除吗?')" href="{:url('/admin/goods/do_delete',['id'=>$item['id']])}"
+               class="btn btn-sm btn-danger">删除</a>
+        </td>
     </tr>
     {/volist}
     </tbody>

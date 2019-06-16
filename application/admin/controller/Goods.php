@@ -46,30 +46,41 @@ class Goods extends BaseController
      */
     public function do_publish(Request $request)
     {
-        $errmsg = $this->validate($request->post(), [
-            'title|名称' => 'require|max:40',
-            'description|简介' => 'max:100',
-            'price|价格' => 'require|>=:0',
-            'stock|库存' => 'require|>=:0',
-            'status|状态' => 'require|>=:0',
-            'content|详情内容' => 'require'
-        ]);
-        if ($errmsg !== true) {
-            $this->error($errmsg);
-            return;
-        }
-        $thumb = $request->file('thumb');
-        if (empty($thumb)) {
-            $this->error('缩略图不能为空');
-            return;
-        }
         try {
             $data = $request->post();
-            $data['thumb'] = AdminService::Factory()->upload($thumb);
+            $thumb = $request->file('thumb');
+            if (!empty($thumb)) {
+                $data['thumb'] = AdminService::Factory()->upload($thumb);
+            }
+            $errmsg = $this->validate($request->post(), [
+                'title|名称' => 'require|max:40',
+                'thumb|缩略图' => 'require',
+                'description|简介' => 'max:100',
+                'price|价格' => 'require|>=:0',
+                'stock|库存' => 'require|>=:0',
+                'status|状态' => 'require|>=:0',
+                'content|详情内容' => 'require'
+            ]);
+            if ($errmsg !== true) {
+                $this->error($errmsg);
+                return;
+            }
+
             GoodsService::Factory()->publish($data);
             $this->success('发布成功', '/admin/goods/index');
         } catch (Exception $e) {
             $this->error($e->getMessage());
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $goods = GoodsService::Factory()->show($request->param('id'));
+            $this->assign('goods', $goods);
+            return $this->fetch();
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
         }
     }
 
@@ -79,20 +90,26 @@ class Goods extends BaseController
      */
     public function do_update(Request $request)
     {
-        $errmsg = $this->validate($request->post(), [
-            'id|商品ID' => 'require',
-            'title|名称' => 'require|max:40',
-            'description|简介' => 'max:100',
-            'price|价格' => 'require|>=:0',
-            'stock|库存' => 'require|>=:0',
-            'status|状态' => 'require|>=:0',
-        ]);
-        if ($errmsg !== true) {
-            $this->error($errmsg);
-            return;
-        }
         try {
-            GoodsService::Factory()->update($request->post());
+            $data = $request->post();
+            $thumb = $request->file('thumb_file');
+            if (!empty($thumb)) {
+                $data['thumb'] = AdminService::Factory()->upload($thumb);
+            }
+            $errmsg = $this->validate($data, [
+                'id|商品ID' => 'require',
+                'thumb|缩略图' => 'require',
+                'title|名称' => 'require|max:40',
+                'description|简介' => 'max:100',
+                'price|价格' => 'require|>=:0',
+                'stock|库存' => 'require|>=:0',
+                'status|状态' => 'require|>=:0',
+            ]);
+            if ($errmsg !== true) {
+                $this->error($errmsg);
+                return;
+            }
+            GoodsService::Factory()->update($data);
             $this->success('编辑成功', '/admin/goods/index');
         } catch (Exception $e) {
             $this->error($e->getMessage());

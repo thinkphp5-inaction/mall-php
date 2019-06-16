@@ -90,4 +90,19 @@ class GoodsService extends Service
             throw new Exception('删除失败');
         }
     }
+
+    /**
+     * @param int $id
+     * @return Goods|null
+     * @throws DbException
+     * @throws Exception
+     */
+    public function show($id)
+    {
+        $goods = Goods::get(['id' => $id]);
+        if (empty($goods)) {
+            throw new Exception('商品不存在');
+        }
+        return $goods;
+    }
 }
