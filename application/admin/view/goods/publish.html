@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="thumb">缩略图</label>
-        <input type="file" name="thumb" class="form-control-file" id="thumb">
+        <input type="file" name="thumb" class="form-control-static" id="thumb">
     </div>
     <div class="form-group">
         <label for="description">简介(选填)</label>
@@ -32,15 +32,13 @@
     </div>
     <div class="form-group">
         <label>商品状态</label>
-        <div class="form-control-plaintext">
-            <div class="form-check form-check-inline">
-                <input id="online" checked type="radio" class="form-check-input" name="status" value="1">
-                <label for="online" class="form-check-label">上架</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input id="offline" type="radio" class="form-check-input" name="status" value="0">
-                <label for="offline" class="form-check-label">下架</label>
-            </div>
+        <div class="form-control-static">
+            <label class="radio-inline">
+                <input type="radio" name="status" value="1" checked> 上架
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="status" value="0"> 下架
+            </label>
         </div>
     </div>
     <div class="form-group">

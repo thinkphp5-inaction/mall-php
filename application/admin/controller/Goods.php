@@ -26,7 +26,7 @@ class Goods extends BaseController
     public function index(Request $request)
     {
         try {
-            $list = GoodsService::Factory()->list($request->get('size', 1), $request->get('keyword'));
+            $list = GoodsService::Factory()->list($request->get('size', 10), $request->get('keyword'));
             $this->assign('page', $list->render());
             $this->assign('list', $list);
             return $this->fetch();

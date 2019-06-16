@@ -1,9 +1,7 @@
 {layout name="layout/main"/}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="flexbox">
     <h1 class="h2">商品管理</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <a href="{:url('publish')}" class="btn btn-sm btn-outline-primary">添加商品</a>
-    </div>
+    <a href="{:url('publish')}" class="btn btn-sm btn-primary">添加商品</a>
 </div>
 
 <table class="table table-bordered">
@@ -32,9 +30,9 @@
         <td>{$item.stock}</td>
         <td>
             {eq name="item.status" value="1"}
-            <span class="badge badge-pill badge-success">上架</span>
+            <span class="label label-success">上架</span>
             {else/}
-            <span class="badge badge-pill badge-warning">下架</span>
+            <span class="label label-danger">下架</span>
             {/eq}
         </td>
         <td>{$item.created_at}</td>
