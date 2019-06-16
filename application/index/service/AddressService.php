@@ -90,4 +90,17 @@ class AddressService extends Service
         $model = new Address();
         return $model->where('user_id', $userId)->order(['default' => 'desc', 'id' => 'asc'])->select();
     }
+
+    /**
+     * 删除
+     * @param int $id
+     * @param $userId
+     * @throws Exception
+     */
+    public function delete($id, $userId)
+    {
+        if (!Address::destroy(['id' => $id, 'user_id' => $userId])) {
+            throw new Exception('删除失败');
+        }
+    }
 }

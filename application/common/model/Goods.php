@@ -21,9 +21,7 @@ use traits\model\SoftDelete;
  * @property double $price
  * @property int    $stock
  * @property int    $status
- * @property array  $images
  * @property string $content
- * @property array  $tags
  * @property int    $created_at
  * @property int    $updated_at
  */
