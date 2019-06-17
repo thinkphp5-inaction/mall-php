@@ -33,6 +33,9 @@ class AddressService extends Service
     public function create(array $data, $userId)
     {
         $model = new Address();
+        if ($data['default']) {
+            Address::update(['default' => 0], ['user_id' => $userId]);
+        }
         $model->data($data);
         $model->user_id = $userId;
         if (!$model->save()) {
@@ -70,6 +73,9 @@ class AddressService extends Service
     public function update($id, array $data, $userId)
     {
         $model = $this->show($id, $userId);
+        if ($data['default']) {
+            Address::update(['default' => 0], ['user_id' => $userId]);
+        }
         $model->data($data);
         if (!$model->save()) {
             throw new Exception('编辑失败');
@@ -94,7 +100,7 @@ class AddressService extends Service
     /**
      * 删除
      * @param int $id
-     * @param $userId
+     * @param     $userId
      * @throws Exception
      */
     public function delete($id, $userId)

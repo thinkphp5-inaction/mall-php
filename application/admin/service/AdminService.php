@@ -49,7 +49,7 @@ class AdminService extends Service
         if (!$info) {
             throw new Exception('上传失败');
         }
-        return '/uploads/' . $info->getSaveName();
+        return request()->domain() . '/uploads/' . $info->getSaveName();
     }
 
     /**
@@ -65,7 +65,7 @@ class AdminService extends Service
             if (!$info) {
                 throw new Exception('上传失败');
             }
-            $result[] = '/public/uploads/'.$info->getSaveName();
+            $result[] = '/public/uploads/' . $info->getSaveName();
         }
         return $result;
     }
