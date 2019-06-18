@@ -1,0 +1,31 @@
+{layout name="layout/main" /}
+
+<h2>用户管理</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>openid</th>
+            <th>头像</th>
+            <th>昵称</th>
+            <th>注册时间</th>
+            <th>注册IP</th>
+        </tr>
+        {volist name="list" id="item"}
+        <tr>
+            <td>{$item.id}</td>
+            <td>{$item.openid}</td>
+            <td>
+                <img src="{$item.avatar}" width="32" height="32" alt="">
+            </td>
+            <td>{$item.nickname}</td>
+            <td>
+                {$item.created_at}
+            </td>
+            <td>{$item.created_ip}</td>
+        </tr>
+        {/volist}
+    </table>
+</div>
+{$page}

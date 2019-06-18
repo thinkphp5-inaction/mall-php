@@ -20,7 +20,6 @@ use think\Model;
  * @property string $realname
  * @property string $phone
  * @property string $address
- * @property string $remark
  * @property array  $snapshot
  * @property int    $created_at
  * @property int    $pay_at
@@ -33,9 +32,10 @@ class Order extends Model
     const STATUS_PAYED = 1; // 已支付
     protected $autoWriteTimestamp = true;
     protected $createTime = 'created_at';
-    protected $updateTime = 'updated_at';
+    protected $updateTime = false;
 
     protected $type = [
-        'snapshot' => 'json'
+        'snapshot' => 'json',
+        'pay_at' => 'timestamp'
     ];
 }

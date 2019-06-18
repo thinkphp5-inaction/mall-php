@@ -26,8 +26,8 @@ class Order extends BaseController
     {
         try {
             $userId = $this->loginRequired();
-            OrderService::Factory()->pay($request->param('order_id'), $userId);
-            return json_msg('ok');
+            $order = OrderService::Factory()->pay($request->param('order_id'), $userId);
+            return json($order->toArray());
         } catch (Exception $e) {
             return json_msg($e->getMessage(), $e->getCode() ?: 500);
         }
@@ -44,6 +44,22 @@ class Order extends BaseController
             $userId = $this->loginRequired();
             $list = OrderService::Factory()->list($userId, $request->param('page', 1), $request->param('size', 10));
             return json($list);
+        } catch (Exception $e) {
+            return json_msg($e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
+
+    /**
+     * 订单详情
+     * @param Request $request
+     * @return Json
+     */
+    public function show(Request $request)
+    {
+        try {
+            $userId = $this->loginRequired();
+            $order = OrderService::Factory()->show($request->param('id'), $userId);
+            return json($order->toArray());
         } catch (Exception $e) {
             return json_msg($e->getMessage(), $e->getCode() ?: 500);
         }

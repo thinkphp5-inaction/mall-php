@@ -26,13 +26,14 @@ class OrderService extends Service
      * 支付
      * @param int $orderId
      * @param int $userId
+     * @return Order
      */
     public function pay($orderId, $userId)
     {
         $model = new Order();
-        $model->transaction(function () use ($model, $userId, $orderId) {
+        return $model->transaction(function () use ($model, $userId, $orderId) {
             /** @var Order $order */
-            $order = $model->where('id', $orderId)->lock(true)->find();
+            $order = $model->where('order_id', $orderId)->lock(true)->find();
 
             if (empty($order) || $order->user_id != $userId) {
                 throw new Exception('订单不存在', 404);
@@ -64,7 +65,22 @@ class OrderService extends Service
         $model = new Order();
         $model->where('user_id', $userId)->order(['order_id' => 'desc']);
         $model->page($page, $size);
-        $model->field(['snapshot'], true);
         return $model->select();
+    }
+
+    /**
+     * @param int $orderId
+     * @param int $userId
+     * @return Order|null
+     * @throws DbException
+     * @throws Exception
+     */
+    public function show($orderId, $userId)
+    {
+        $order = Order::get(['order_id' => $orderId, 'user_id' => $userId]);
+        if (empty($order)) {
+            throw new Exception('订单不存在');
+        }
+        return $order;
     }
 }

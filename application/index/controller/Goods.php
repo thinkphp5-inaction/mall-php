@@ -71,7 +71,7 @@ class Goods extends BaseController
             $order = GoodsService::Factory()->buy($data['goods_id'], $userId, $data);
             return json($order->toArray());
         } catch (Exception $e) {
-            return json_msg($e->getCode(), $e->getCode() ?: 500);
+            return json_msg($e->getMessage(), $e->getCode() ?: 500, explode(PHP_EOL, $e->getTraceAsString()));
         }
     }
 }

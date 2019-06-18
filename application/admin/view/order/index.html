@@ -1,0 +1,54 @@
+{layout name="layout/main"/}
+<h2>订单管理</h2>
+<form action="" method="get" class="form form-inline" style="margin: 10px 0">
+    <label for="status" class="control-label">订单状态</label>
+    <select name="status" id="status" class="form-control">
+        <option value="" {eq name="Think.get.status" value=""}selected{/eq}>全部</option>
+        <option value="0" {eq name="Think.get.status" value="0"}selected{/eq}>未支付</option>
+        <option value="1" {eq name="Think.get.status" value="1"}selected{/eq}>已支付</option>
+    </select>
+    <button type="submit" class="btn btn-primary">筛选</button>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>订单ID</th>
+            <th>名称</th>
+            <th>价格</th>
+            <th>状态</th>
+            <th>下单时间</th>
+            <th>支付时间</th>
+            <th>收货人</th>
+        </tr>
+        {volist name="list" id="item"}
+        <tr>
+            <td>{$item.order_id}</td>
+            <td>
+                <a href="{:url('/admin/order/show',['id'=>$item['order_id']])}">{$item.title}</a>
+            </td>
+            <td>￥{$item.price}</td>
+            <td>
+                {switch name="item.status"}
+                {case value="0"}<span class="label label-default">未支付</span>{/case}
+                {case value="1"}<span class="label label-success">已支付</span>{/case}
+                {/switch}
+            </td>
+            <td>{$item.created_at}</td>
+            <td>
+                {eq name="item.status" value="0"}
+                未支付
+                {else/}
+                {$item.pay_at}
+                {/eq}
+            </td>
+            <td>
+                {$item.realname} <br>
+                {$item.phone} <br>
+                {$item.address} <br>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+</div>
+{$page}

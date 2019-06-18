@@ -1,0 +1,100 @@
+{layout name="layout/main" /}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-order"><a href="{:url('/admin')}">首页</a></li>
+        <li class="breadcrumb-order"><a href="{:url('/admin/order')}">订单管理</a></li>
+        <li class="breadcrumb-order active" aria-current="page">订单详情</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">订单信息</div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>订单ID</th>
+                        <td>{$order.order_id}</td>
+                    </tr>
+                    <tr>
+                        <th>订单名称</th>
+                        <td>{$order.title}</td>
+                    </tr>
+                    <tr>
+                        <th>订单价格</th>
+                        <td>{$order.price}</td>
+                    </tr>
+                    <tr>
+                        <th>订单状态</th>
+                        <td>
+                            {switch name="order.status"}
+                            {case value="0"}<span class="label label-default">未支付</span>{/case}
+                            {case value="1"}<span class="label label-success">已支付</span>{/case}
+                            {/switch}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>下单时间</th>
+                        <td>{$order.created_at}</td>
+                    </tr>
+                    <tr>
+                        <th>支付时间</th>
+                        <td>
+                            {eq name="order.status" value="0"}
+                            未支付
+                            {else/}
+                            {$order.pay_at}
+                            {/eq}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>联系人</th>
+                        <td>{$order.realname}</td>
+                    </tr>
+                    <tr>
+                        <th>联系电话</th>
+                        <td>{$order.phone}</td>
+                    </tr>
+                    <tr>
+                        <th>联系人地址</th>
+                        <td>{$order.address}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">商品信息</div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="2">
+                            <div class="text-center">
+                                <img src="{$order.snapshot.thumb}" width="100" alt="">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>商品ID</th>
+                        <td>{$order.snapshot.id}</td>
+                    </tr>
+                    <tr>
+                        <th>商品名称</th>
+                        <td>{$order.snapshot.title}</td>
+                    </tr>
+                    <tr>
+                        <th>商品价格</th>
+                        <td>￥{$order.snapshot.price}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

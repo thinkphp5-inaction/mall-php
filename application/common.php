@@ -16,9 +16,10 @@ use think\response\Json;
  * 输出JSON
  * @param string $errmsg
  * @param int    $errcode
+ * @param array  $extra
  * @return Json
  */
-function json_msg($errmsg, $errcode = 0)
+function json_msg($errmsg, $errcode = 0, $extra = [])
 {
-    return json(['errmsg' => $errmsg, 'errcode' => $errcode]);
+    return json(['errmsg' => $errmsg, 'errcode' => $errcode, 'extra' => $extra]);
 }
